@@ -11,9 +11,9 @@ const settings = {
 
 //SKETCH FUNCTION
 const sketch = () => {
-  //Variables
+  //Variable Decleration
   let x, y, w, h, fill, stroke, blend;
-  let radius, angle;
+  let angle, rx, ry;
 
   //const num = 40;
   //const degrees = -30;
@@ -102,39 +102,38 @@ const sketch = () => {
     context.save();
     //context.translate(x, y);
 
-    //translates points so when drawn point by point can be represented as 0
-    context.translate(w * -0.5, h * -0.5);
+    //context.strokeRect(w * -0.5, h * -0.5, w, h);
+
+    //Variable Decleration
+    //used util API to convert angle to radiun
+    //declare radius, horizonal = 0, vertical = 90
+    angle = math.degToRad(30);
+
+    //Variable Assignment
+    //radius * width
+    rx = Math.cos(angle) * w;
+    ry = Math.sin(angle) * w;
 
     //line colour
     context.strokeStyle = 'blue';
 
-    //context.strokeRect(w * -0.5, h * -0.5, w, h);
+    //translates points so when drawn point by point can be represented as 0
+    context.translate(rx * -0.5, (ry + h) * -0.5);
 
-    //Draw rect point by point
-    // context.beginPath();
-    // context.moveTo(0, 0);
-    // context.lineTo(w, 0);
-    // context.lineTo(w, h);
-    // context.lineTo(0, h);
-    // context.closePath();
-    // context.stroke();
-
-    //Variable Decleration
-    radius = 200;
-    //used util API to convert angle to radiun
-    angle = math.degToRad(30);
-
-    //Variable Assignment
-    //cartesian math to work out angle
-    x = Math.cos(angle) * radius;
-    y = Math.sin(angle) * radius;
-
-    //Variable Useage
-    //draw radius lines
+    //Draw rect point by point isuing rx/ry to decide angle
     context.beginPath();
     context.moveTo(0, 0);
-    context.lineTo(x, y);
+    context.lineTo(rx, ry);
+    context.lineTo(w, h);
+    context.lineTo(0, h);
+    context.closePath();
     context.stroke();
+
+    //draw small radius lines to illustrate radius
+    // context.beginPath();
+    // context.moveTo(0, 0);
+    // context.lineTo(x, y);
+    // context.stroke();
 
     context.restore();
   };
