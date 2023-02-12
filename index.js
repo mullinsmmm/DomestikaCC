@@ -50,7 +50,7 @@ const sketch = () => {
     //   let shadowColor;
 
     //   context.save();
-    //   context.translate(x, y);
+    
     //   context.strokestyle = stroke;
     //   context.fillstyle = fill;
     //   context.linewidth = 10;
@@ -89,6 +89,8 @@ const sketch = () => {
     w = width * 0.6;
     h = height * 0.1;
 
+    context.translate(x, y);
+
     //Drawing rectangle code block
     //save to avoid disrupting code later down
     //Translate points to make rect central
@@ -97,7 +99,7 @@ const sketch = () => {
     // context.translate(w * -0.5, h * -0.5);
 
     context.strokeStyle = 'blue';
-    context.strokeRect(x, y, w, h);
+    context.strokeRect(w * -0.5, h * -0.5, w, h);
 
     //acturallly draw rect, from top left, along to top right then followed
     // //finally adding a stroke
