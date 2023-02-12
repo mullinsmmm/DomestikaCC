@@ -1,16 +1,19 @@
+//API ELEMENTS USED
 const canvasSketch = require('canvas-sketch');
 const math = require('canvas-sketch-util/math');
 const random = require('canvas-sketch-util/random');
 
-//Setup
+//SETUP FUNCTION
 const settings = {
   dimensions: [1080, 1080],
   //animate: true,
 };
 
-//sketch function
+//SKETCH FUNCTION
 const sketch = () => {
+  //Variables
   let x, y, w, h, fill, stroke, blend;
+  let radius, angle;
 
   //const num = 40;
   //const degrees = -30;
@@ -39,10 +42,13 @@ const sketch = () => {
   //   rects.push({ x, y, w, h, fill, stroke, blend });
   // }
 
-  //render Function
+  //RENDER FUNCTION
   return ({ context, width, height }) => {
     // context.fillStyle = bgColor;
+
+    //Background colour
     context.fillStyle = 'pink';
+    //Background fill area
     context.fillRect(0, 0, width, height);
 
     // rects.forEach((rect) => {
@@ -89,21 +95,45 @@ const sketch = () => {
     w = width * 0.6;
     h = height * 0.1;
 
+    //Moves rect to centre of canvas
     context.translate(x, y);
 
+    //Good practice to save then restore after code block when using translate so x,y,w,h can be used later in code if needed
     context.save();
     //context.translate(x, y);
+
+    //translates points so when drawn point by point can be represented as 0
     context.translate(w * -0.5, h * -0.5);
 
+    //line colour
     context.strokeStyle = 'blue';
+
     //context.strokeRect(w * -0.5, h * -0.5, w, h);
 
+    //Draw rect point by point
+    // context.beginPath();
+    // context.moveTo(0, 0);
+    // context.lineTo(w, 0);
+    // context.lineTo(w, h);
+    // context.lineTo(0, h);
+    // context.closePath();
+    // context.stroke();
+
+    //Variable Decleration
+    radius = 200;
+    //used util API to convert angle to radiun
+    angle = math.degToRad(30);
+
+    //Variable Assignment
+    //cartesian math to work out angle
+    x = Math.cos(angle) * radius;
+    y = Math.sin(angle) * radius;
+
+    //Variable Useage
+    //draw radius lines
     context.beginPath();
     context.moveTo(0, 0);
-    context.lineTo(w, 0);
-    context.lineTo(w, h);
-    context.lineTo(0, h);
-    context.closePath();
+    context.lineTo(x, y);
     context.stroke();
 
     context.restore();
