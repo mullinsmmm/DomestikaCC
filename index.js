@@ -95,48 +95,58 @@ const sketch = () => {
     w = width * 0.6;
     h = height * 0.1;
 
-    //Moves rect to centre of canvas
-    context.translate(x, y);
-
     //Good practice to save then restore after code block when using translate so x,y,w,h can be used later in code if needed
     context.save();
-    //context.translate(x, y);
 
-    //context.strokeRect(w * -0.5, h * -0.5, w, h);
-
-    //Variable Decleration
-    //used util API to convert angle to radiun
-    //declare radius, horizonal = 0, vertical = 90
-    angle = math.degToRad(60);
-
-    //Variable Assignment
-    //radius * width
-    rx = Math.cos(angle) * w;
-    ry = Math.sin(angle) * w;
-
+    //Moves rect to centre of canvas
+    context.translate(x, y);
     //line colour
     context.strokeStyle = 'blue';
 
-    //translates points so when drawn point by point can be represented as 0
-    context.translate(rx * -0.5, (ry + h) * -0.5);
+    //context.strokeRect(w * -0.5, h * -0.5, w, h);
 
-    //Draw rect point by point isuing rx/ry to decide angle
-    context.beginPath();
-    context.moveTo(0, 0);
-    context.lineTo(rx, ry);
-    context.lineTo(rx, ry + h);
-    context.lineTo(0, h);
-    context.closePath();
+    //Call draw rect function (within the context of the canvas)
+    drawSkewedRect({ context });
     context.stroke();
-
-    //draw small radius lines to illustrate radius
-    // context.beginPath();
-    // context.moveTo(0, 0);
-    // context.lineTo(x, y);
-    // context.stroke();
 
     context.restore();
   };
+};
+
+//FUNCTION DECLERATION
+//Creates Skewed box function context = draw area,w = width, h = height, degrees = angle of skew
+const drawSkewedRect = ({ context, w = 600, h = 200, degrees = -45 }) => {
+  //Variable Decleration (uses const as its inside a function and doesnt change)
+  //used 'util' cavnas-sketch API to convert angle to radiun
+  //declare radius, horizonal = 0, vertical = 90
+  const angle = math.degToRad(degrees);
+  //radius * width
+  const rx = Math.cos(angle) * w;
+  const ry = Math.sin(angle) * w;
+
+  //good practice to save then restore
+  context.save();
+
+  //translates points so when drawn point by point can be represented as 0
+  context.translate(rx * -0.5, (ry + h) * -0.5);
+
+  //Draw rect point by point isuing rx/ry to decide angle
+  context.beginPath();
+  context.moveTo(0, 0);
+  context.lineTo(rx, ry);
+  context.lineTo(rx, ry + h);
+  context.lineTo(0, h);
+  context.closePath();
+  context.stroke();
+
+  //good practice to save then restore
+  context.restore();
+
+  //draw small radius lines to illustrate radius
+  // context.beginPath();
+  // context.moveTo(0, 0);
+  // context.lineTo(x, y);
+  // context.stroke();
 };
 
 canvasSketch(sketch, settings);
