@@ -1,6 +1,9 @@
-//API ELEMENTS USED
+//API ELEMENTS USED - must install dependencies to use
+//called to use canvas sketch
 const canvasSketch = require('canvas-sketch');
+//called to use Math
 const math = require('canvas-sketch-util/math');
+//Called to use random function
 const random = require('canvas-sketch-util/random');
 
 //SETUP FUNCTION
@@ -15,7 +18,8 @@ const sketch = () => {
   let x, y, w, h, fill, stroke, blend;
   let angle, rx, ry;
 
-  //const num = 40;
+  //number of rects
+  const num = 40;
   //const degrees = -30;
 
   //const rects = [];
@@ -86,30 +90,35 @@ const sketch = () => {
     //   context.restore();
     // });
 
-    //Declare Parameters
-    //0.5 = Half canvas
-    //0.1 = 1/10th canvas
-    //0.6 = 6/10th canvas
-    x = width * 0.5;
-    y = height * 0.5;
-    w = width * 0.6;
-    h = height * 0.1;
+    //for loop encompassing drawSkewedRect function and parameters.
+    //if i is less that the value of num (above) call drawSkewedRect one more time and repeat
+    for (let i = 0; i < num; i++) {
+      //Declare Parameters
+      //0.5 = Half canvas
+      //0.1 = 1/10th canvas
+      //0.6 = 6/10th canvas
+      x = random.range(0, width);
+      y = height * 0.5;
+      w = width * 0.6;
+      h = height * 0.1;
 
-    //Good practice to save then restore after code block when using translate so x,y,w,h can be used later in code if needed
-    context.save();
+      //Good practice to save then restore after code block when using translate so x,y,w,h can be used later in code if needed
+      context.save();
 
-    //Moves rect to centre of canvas
-    context.translate(x, y);
-    //line colour
-    context.strokeStyle = 'blue';
+      //Moves rect to centre of canvas
+      context.translate(x, y);
+      //line colour
+      context.strokeStyle = 'blue';
 
-    //context.strokeRect(w * -0.5, h * -0.5, w, h);
+      //context.strokeRect(w * -0.5, h * -0.5, w, h);
 
-    //Call draw rect function (within the context of the canvas)
-    drawSkewedRect({ context });
-    context.stroke();
+      //Call draw rect function (within the context of the canvas)
+      drawSkewedRect({ context });
 
-    context.restore();
+      context.stroke();
+
+      context.restore();
+    }
   };
 };
 
