@@ -107,7 +107,7 @@ const sketch = () => {
     //Variable Decleration
     //used util API to convert angle to radiun
     //declare radius, horizonal = 0, vertical = 90
-    angle = math.degToRad(30);
+    angle = math.degToRad(60);
 
     //Variable Assignment
     //radius * width
@@ -124,7 +124,7 @@ const sketch = () => {
     context.beginPath();
     context.moveTo(0, 0);
     context.lineTo(rx, ry);
-    context.lineTo(w, h);
+    context.lineTo(rx, ry + h);
     context.lineTo(0, h);
     context.closePath();
     context.stroke();
